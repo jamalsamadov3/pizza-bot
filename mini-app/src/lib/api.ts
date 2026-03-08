@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Use relative URL to leverage Next.js rewrite rules handling CORS
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
+// Always use relative /api path - Next.js rewrites proxy this to the backend server
+const API_URL = '/api';
 
 const api = axios.create({
   baseURL: API_URL,
