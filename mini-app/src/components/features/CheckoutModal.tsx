@@ -62,7 +62,8 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
       
       // Allow user to see the success state for a moment before closing
       if (webApp) {
-         webApp.showAlert("Buyurtmangiz muvaffaqiyatli qabul qilindi!", () => {
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         (webApp as any).showAlert("Buyurtmangiz muvaffaqiyatli qabul qilindi!", () => {
              closeTelegramApp();
          });
       } else {
