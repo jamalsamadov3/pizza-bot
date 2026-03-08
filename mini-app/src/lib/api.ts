@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-// Always use relative /api path - Next.js rewrites proxy this to the backend server
-const API_URL = '/api';
+// In production: NEXT_PUBLIC_API_URL should be the PUBLIC backend domain (e.g. https://backend.traefik.me/api)
+// In development: falls back to /api which is proxied by Next.js rewrites to localhost:3001
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_URL,
