@@ -22,14 +22,17 @@ export default function Home() {
   const totalPrice = useCartStore((state) => state.getTotalPrice());
   const [isClient, setIsClient] = useState(false);
 
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     setIsClient(true);
     const fetchProducts = async () => {
       try {
         const data = await getProducts();
         setProducts(data);
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
+      } catch (err: any) {
+        console.error('Failed to fetch products:', err);
+        setError(err?.message || 'Failed to load products');
       } finally {
         setIsLoading(false);
       }
@@ -42,6 +45,18 @@ export default function Home() {
     return (
       <div className="flex h-[80vh] items-center justify-center">
         <Loader2 className="w-10 h-10 text-orange-500 animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col h-[80vh] items-center justify-center p-6 text-center">
+        <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-4 w-full">
+          <p className="font-bold mb-1">Xatolik yuz berdi!</p>
+          <p className="text-sm break-words">{error}</p>
+        </div>
+        <Button onClick={() => window.location.reload()}>Qayta urinish</Button>
       </div>
     );
   }
